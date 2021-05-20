@@ -6,9 +6,12 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
+            double x = 333.33;
+            double y = 11.1 + x;
+
             if(args.Length > 0)
             {
-                Console.WriteLine($"Hello, {args[0]}...");
+                Console.WriteLine($"Total Score: {y}");
             }
             else
             {
