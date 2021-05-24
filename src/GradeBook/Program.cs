@@ -1,34 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; //List's namespace
 
-namespace GradeBook
+namespace GradeBook //keep your classes in their own namespace, avoid conflicts
 {
+    
     class Program
     {
         static void Main(string[] args)
         {            
-            var grades = new List<double>() {10.2, 33.4, 25.2222, 11.1};
-            grades.Add(22.2);
-            var numofGrades = grades.Count;
+            var book = new Book("Bookname");
+            book.AddGrade(33.3);
+            book.AddGrade(44.3);
 
-            var sum = 0.0; 
+            var grades = new List<double>() {1.2, 2.2, 1.1, 1.1};
+            grades.Add(1.1);
+
+            var result = 0.0; 
+            var highGrade = double.MinValue;
+            var lowGrade = double.MaxValue;
             foreach(var number in grades)
             {
-                sum += number;
+                highGrade = Math.Max(number, highGrade);
+                lowGrade = Math.Min(number, lowGrade);
+                result += number;
             }
             
-            var avg = sum / numofGrades;
-
-            Console.WriteLine($"Total: {sum:N3}, Avg: {avg:N1}");
-
-            if(args.Length > 0)
-            {
-                Console.WriteLine($"Total Score: {sum}");
-            }
-            else
-            {
-                Console.WriteLine("Hello, World");
-            }
+            result /= grades.Count;
+            Console.WriteLine($"Avg: {result:N1} | High Grade: {highGrade} | Low Grade: {lowGrade}");
             
         }
     }
