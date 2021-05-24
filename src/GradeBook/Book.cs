@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GradeBook
+namespace GradeBook //make sure name matches Program.cs namepsace
 {
    class Book
     {

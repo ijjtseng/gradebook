@@ -16,8 +16,8 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
             grades.Add(1.1);
 
             var result = 0.0; 
-            var highGrade = double.MinValue;
-            var lowGrade = double.MaxValue;
+            var highGrade = double.MinValue; //lowest possible double value
+            var lowGrade = double.MaxValue; //largest possible double value
             foreach(var number in grades)
             {
                 highGrade = Math.Max(number, highGrade);
