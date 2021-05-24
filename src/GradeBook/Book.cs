@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace GradeBook //make sure name matches Program.cs namepsace
@@ -16,6 +17,23 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         {
             grades.Add(grade);
         }
+
+        public void ShowStats()
+        {
+            var result = 0.0; 
+            var highGrade = double.MinValue; //lowest possible double value
+            var lowGrade = double.MaxValue; //largest possible double value
+            foreach(var number in grades)
+            {
+                highGrade = Math.Max(number, highGrade);
+                lowGrade = Math.Min(number, lowGrade);
+                result += number;
+            }
+            
+            result /= grades.Count;
+            Console.WriteLine($"Avg: {result:N1} | High Grade: {highGrade} | Low Grade: {lowGrade}");
+        }
+
         private List<double> grades;
         private string name;
         

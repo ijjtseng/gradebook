@@ -8,25 +8,13 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
     {
         static void Main(string[] args)
         {            
-            var book = new Book("Bookname");
+            var book = new Book("My Gradebook");
             book.AddGrade(33.3);
             book.AddGrade(44.3);
+            book.AddGrade(74.3);
+            book.ShowStats();
 
-            var grades = new List<double>() {1.2, 2.2, 1.1, 1.1};
-            grades.Add(1.1);
-
-            var result = 0.0; 
-            var highGrade = double.MinValue; //lowest possible double value
-            var lowGrade = double.MaxValue; //largest possible double value
-            foreach(var number in grades)
-            {
-                highGrade = Math.Max(number, highGrade);
-                lowGrade = Math.Min(number, lowGrade);
-                result += number;
-            }
             
-            result /= grades.Count;
-            Console.WriteLine($"Avg: {result:N1} | High Grade: {highGrade} | Low Grade: {lowGrade}");
             
         }
     }
