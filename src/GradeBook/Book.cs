@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GradeBook //make sure name matches Program.cs namepsace
 {
-   class Book
+   public class Book //default internal, not public
     {
         
         public  Book(string name) //creating explicit constructor, must have same name as class
