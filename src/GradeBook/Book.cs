@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GradeBook //make sure name matches Program.cs namepsace
 {
-   public class Book //default internal, not public
+   public class Book //default internal, not public. just need public for unit testing.
     {
         
         public  Book(string name) //creating explicit constructor, must have same name as class
@@ -18,20 +18,22 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             grades.Add(grade);
         }
 
-        public void ShowStats()
+        public Stats GetStats() //needs to return an object, classes define object, GetStats carries values to destination
         {
-            var result = 0.0; 
-            var highGrade = double.MinValue; //lowest possible double value
-            var lowGrade = double.MaxValue; //largest possible double value
-            foreach(var number in grades)
+            var result = new Stats();
+            result.Average = 0.0;
+            result.High = double.MinValue; //lowest possible double value
+            result.Low = double.MaxValue; //largest possible double value
+
+            foreach(var grade in grades)
             {
-                highGrade = Math.Max(number, highGrade);
-                lowGrade = Math.Min(number, lowGrade);
-                result += number;
+                result.High = Math.Max(grade, result.High);
+                result.Low = Math.Min(grade, result.Low);
+                result.Average += grade;
             }
-            
-            result /= grades.Count;
-            Console.WriteLine($"Avg: {result:N1} | High Grade: {highGrade} | Low Grade: {lowGrade}");
+            result.Average /= grades.Count;
+
+            return result;
         }
 
         private List<double> grades;

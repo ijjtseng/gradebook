@@ -13,7 +13,7 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
-  <!-- dotnet add reference PATH -->
+  <!-- Where is project we want to test? $dotnet add reference PATH-TO-PROJECT -->
   <ItemGroup>
     <ProjectReference Include="..\..\src\GradeBook\GradeBook.csproj" />
   </ItemGroup>
