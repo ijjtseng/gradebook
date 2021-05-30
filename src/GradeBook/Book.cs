@@ -9,7 +9,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         public  Book(string name) //creating explicit constructor, must have same name as class
         {
             grades = new List<double>();
-            this.name = name;
+            Name = name;
         }
 
         
@@ -37,7 +37,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         }
 
         private List<double> grades;
-        private string name;
+        public string Name;
         
     }
 }
