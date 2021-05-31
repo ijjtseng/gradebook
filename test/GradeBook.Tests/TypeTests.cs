@@ -9,15 +9,15 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
         public void CSharpCouldPassByRef() // ref!!
         {
             var book1 = GetBook("Book 1");
-            GetBookSetNameByRef(ref book1, "New Name"); // ref!!
+            GetBookSetNameByRef(ref book1, "New Name"); // ref OR out
             
             Assert.Equal("New Name", book1.Name);
 
         }
-
-        private void GetBookSetNameByRef(ref Book book, string name) // ref!!
+        // out parameter assumes incoming reference has not yet been initialized, out paramter must be assigned to smth
+        private void GetBookSetNameByRef(ref Book book, string name) // ref OR out
         {
-            book = new Book(name); 
+            book = new Book(name); //NECESSARY output because out
         }
         
         [Fact]
