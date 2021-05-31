@@ -3,8 +3,43 @@ using Xunit;
 
 namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, therefore no using statement is needed
 {
-    public class TypeTests
+    //class is reference type, struct --> value, highlight+F12 to check if reference or value type
+    public class TypeTests 
     {
+        [Fact]
+        public void StringsBehaveLikeValueTypes()
+        {
+            //strings are immutable
+            string name = "Name";
+            var upper = MakeUppercase(name);
+
+            Assert.Equal("Name", name);
+            Assert.Equal("NAME", upper);
+        }
+
+        private string MakeUppercase(string parameter)
+        {
+            return parameter.ToUpper(); //w/o return, ToUpper returns a copy, not changing actual string
+        }
+
+        [Fact]
+        public void ValueTypeAlsoPassByValue()
+        {
+            var x = GetInt(); // value is copied into variable
+            SetInt(out x);
+            Assert.Equal(42, x);
+        }
+
+        private void SetInt(out int y)
+        {
+            y = 42;
+        }
+
+        private int GetInt()
+        {
+            return 3;
+        }
+
         [Fact]
         public void CSharpCouldPassByRef() // ref!!
         {
