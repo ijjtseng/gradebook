@@ -16,6 +16,7 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
             var stats = book1.GetStats();
 
             Assert.Equal(5, stats.Low);
+            Assert.Equal('F', stats.Letter);
         }
         
         [Fact]

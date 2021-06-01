@@ -16,6 +16,7 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
             var stats = book.GetStats();
 
             Console.WriteLine($"Avg: {stats.Average:N1} | High Grade: {stats.High} | Low Grade: {stats.Low}");
+            Console.WriteLine($"The letter grade is: {stats.Letter}");
             //refactoring, unit test forces improvement in code
             
             
