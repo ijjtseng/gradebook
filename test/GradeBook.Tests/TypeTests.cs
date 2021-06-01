@@ -7,6 +7,18 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
     public class TypeTests 
     {
         [Fact]
+        public void GradeMustBeZeroToOneHundred()
+        {
+            var book1 = GetBook("Book 1");
+            book1.AddGrade(5);
+            book1.AddGrade(-5);
+            book1.AddGrade(105);
+            var stats = book1.GetStats();
+
+            Assert.Equal(5, stats.Low);
+        }
+        
+        [Fact]
         public void StringsBehaveLikeValueTypes()
         {
             //strings are immutable
