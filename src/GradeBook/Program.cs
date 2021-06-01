@@ -9,14 +9,24 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
         static void Main(string[] args)
         {            
             var book = new Book("My Gradebook");
-            book.AddGrade(33.3);
-            book.AddGrade(44.3);
-            book.AddGrade(74.3);
+             
+            while(true)
+            {
+                Console.WriteLine("Enter grade or 'q' to quit.");
+                var input = Console.ReadLine();
+                if (input == "q")
+                {
+                    break;
+                }
+                var grade = double.Parse(input);
+                book.AddGrade(grade);
+
+            };
 
             var stats = book.GetStats();
 
             Console.WriteLine($"Avg: {stats.Average:N1} | High Grade: {stats.High} | Low Grade: {stats.Low}");
-            Console.WriteLine($"The letter grade is: {stats.Letter}");
+            Console.WriteLine($"The average letter grade is: {stats.Letter}");
             //refactoring, unit test forces improvement in code
             
             
