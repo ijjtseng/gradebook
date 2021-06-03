@@ -45,7 +45,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             }
             else
             {
-                Console.WriteLine("Invalid Value");
+                throw new ArgumentException($"Invalid {nameof(grade)}."); //throwing exceptions
             }
             
         }

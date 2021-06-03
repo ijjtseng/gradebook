@@ -18,8 +18,15 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
                 {
                     break;
                 }
-                var grade = double.Parse(input);
-                book.AddGrade(grade);
+
+                try
+                {
+                    var grade = double.Parse(input);
+                    book.AddGrade(grade);
+                }
+                catch(){
+                    
+                }
 
             };
 
