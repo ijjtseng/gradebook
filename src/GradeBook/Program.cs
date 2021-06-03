@@ -24,8 +24,8 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
                     var grade = double.Parse(input);
                     book.AddGrade(grade);
                 }
-                catch(){
-                    
+                catch(Exception ex){
+                    Console.WriteLine(ex.Message); //catching exception
                 }
 
             };
