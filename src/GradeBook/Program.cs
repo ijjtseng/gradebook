@@ -9,6 +9,7 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
         static void Main(string[] args)
         {            
             var book = new Book("My Gradebook");
+            //do while loop to ask for book name?
              
             while(true)
             {
@@ -27,11 +28,14 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
                 catch(Exception ex){
                     Console.WriteLine(ex.Message); //catching exception
                 }
+                
 
             };
 
             var stats = book.GetStats();
+            book.Name = "";
 
+            Console.WriteLine($"For the book named {book.Name}:");
             Console.WriteLine($"Avg: {stats.Average:N1} | High Grade: {stats.High} | Low Grade: {stats.Low}");
             Console.WriteLine($"The average letter grade is: {stats.Letter}");
             //refactoring, unit test forces improvement in code

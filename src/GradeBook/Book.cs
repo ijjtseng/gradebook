@@ -12,7 +12,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             Name = name;
         }
 
-        public void AddLetterGrade(char letter)
+        public void AddGrade(char letter) //method overloading, same name but diff signature
         {
             
             //switch statement
@@ -118,8 +118,33 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             return result;
         }
 
+        //fields
         private List<double> grades;
-        public string Name;
+        //public string Name;
+
+        //property - encapsulate state and data
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if(!String.IsNullOrEmpty(value))
+                {
+                    name = value;
+                }
+            }
+        }
+
+
+        private string name;
+
+        
+
+        
+
         
     }
 }
