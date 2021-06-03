@@ -122,24 +122,28 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         private List<double> grades;
         //public string Name;
 
-        //property - encapsulate state and data
-        public string Name
+        public string Name //property - encapsulate state and data, get set
         {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if(!String.IsNullOrEmpty(value))
-                {
-                    name = value;
-                }
-            }
+            get; set;
+            // get
+            // {
+            //     return name;
+            // }
+            // set
+            // {
+            //     if(!String.IsNullOrEmpty(value))
+            //     {
+            //         name = value;
+            //     }
+            // }
         }
 
 
-        private string name;
+       // private string name;
+
+       readonly string category = "Science"; //readonly field, assigned in constructor
+       public const string CATEGORY = "Science"; //const field, referenced by Book.CATEGORY and not book.CATEGORY
+
 
         
 
