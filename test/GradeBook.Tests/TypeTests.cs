@@ -3,20 +3,48 @@ using Xunit;
 
 namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, therefore no using statement is needed
 {
+    
+    //delegates test method - return type, type and number of parameters
+    public delegate string WriteLogDelegate(string logMessage); // this delegate defines; must return string and have string parameter
+    
     //class is reference type, struct --> value, highlight+F12 to check if reference or value type
     public class TypeTests 
     {
+        int count = 0;
+        [Fact]
+        public void WriteLogDelegateCanPointToMethod() //delegate
+        {
+            WriteLogDelegate log = ReturnMessage;
+            //log = new WriteLogDelegate(ReturnMessage);
+            log += ReturnMessage; //means line above
+            log += IncrementCount;
+            var result = log("Hi");
+            Assert.Equal(3, count);
+            //Assert.Equal("Hi", result);
+        }
+        string IncrementCount(string message)
+        {
+            count++;
+            return message.ToLower;
+        }
+        
+        string ReturnMessage(string message)
+        {
+            count++;
+            return message;
+        }
+        
         [Fact]
         public void GradeMustBeZeroToOneHundred()
         {
             var book1 = GetBook("Book 1");
             book1.AddGrade(5);
-            book1.AddGrade(-5);
-            book1.AddGrade(105);
+            // book1.AddGrade(-5);
+            // book1.AddGrade(105);
             var stats = book1.GetStats();
 
             Assert.Equal(5, stats.Low);
-            Assert.Equal('F', stats.Letter);
+            //Assert.Equal('F', stats.Letter);
         }
         
         [Fact]
