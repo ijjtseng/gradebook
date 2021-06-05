@@ -10,6 +10,9 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
         {            
             var book = new Book("My Gradebook");
             //do while loop to ask for book name?
+            book.GradeAdded += OnGradeAdded; // things listening to event, can only use += or -=
+            book.GradeAdded -= OnGradeAdded;
+            book.GradeAdded += OnGradeAdded;
              
             while(true)
             {
@@ -24,6 +27,7 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
                 {
                     var grade = double.Parse(input);
                     book.AddGrade(grade);
+
                 }
                 catch(Exception ex){
                     Console.WriteLine(ex.Message); //catching exception
@@ -41,6 +45,10 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
             //refactoring, unit test forces improvement in code
             
             
+        }
+        static void OnGradeAdded(object sender, EventArgs e) //reacting to event
+        {
+            Console.WriteLine("A grade was added.");
         }
     }
 }

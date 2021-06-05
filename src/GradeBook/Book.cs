@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace GradeBook //make sure name matches Program.cs namepsace
 {
+   public delegate void GradeAddedDelegate(object sender, EventArgs args); 
+   //normally make separate cs file, one file per TYPE
+   //events take two paramters (object and EventArgs) see line above
    public class Book //default internal, not public. just need public for unit testing.
     {
         
@@ -42,6 +45,13 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             if (grade <= 100 && grade >= 0)
             {
                 grades.Add(grade);
+
+                // event delegate ... call software to show a grade has been added
+                if(GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
+
             }
             else
             {
@@ -49,6 +59,8 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             }
             
         }
+
+        public event GradeAddedDelegate GradeAdded; //field
 
         public Stats GetStats() //needs to return an object, classes define object, GetStats carries values to destination
         {
@@ -139,6 +151,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         }
 
 
+        
        // private string name;
 
        readonly string category = "Science"; //readonly field, assigned in constructor
