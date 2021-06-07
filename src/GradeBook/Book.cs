@@ -11,7 +11,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
    //public v private -- default internal, not public. just need public for unit testing.
     {
         
-        public  Book(string name) //creating explicit constructor, must have same name as class
+        public  Book(string name) : base(name) //creating explicit constructor, must have same name as class
         {
             grades = new List<double>();
             Name = name;
