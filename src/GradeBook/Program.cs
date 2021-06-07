@@ -10,9 +10,7 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
         {            
             var book = new Book("My Gradebook");
             //do while loop to ask for book name?
-            book.GradeAdded += OnGradeAdded; // things listening to event, can only use += or -=
-            book.GradeAdded -= OnGradeAdded;
-            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded += OnGradeAdded; // things listening/subscribed to event, can only use += or -=
              
             while(true)
             {

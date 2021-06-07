@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 namespace GradeBook //make sure name matches Program.cs namepsace
 {
-   public delegate void GradeAddedDelegate(object sender, EventArgs args); 
+
+    public delegate void GradeAddedDelegate(object sender, EventArgs args); 
    //normally make separate cs file, one file per TYPE
    //events take two paramters (object and EventArgs) see line above
-   public class Book //default internal, not public. just need public for unit testing.
+   public class Book : NamedObj //meaning Book is a NamedObj
+   //public v private -- default internal, not public. just need public for unit testing.
     {
         
         public  Book(string name) //creating explicit constructor, must have same name as class
@@ -133,22 +135,6 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         //fields
         private List<double> grades;
         //public string Name;
-
-        public string Name //property - encapsulate state and data, get set
-        {
-            get; set;
-            // get
-            // {
-            //     return name;
-            // }
-            // set
-            // {
-            //     if(!String.IsNullOrEmpty(value))
-            //     {
-            //         name = value;
-            //     }
-            // }
-        }
 
 
         
