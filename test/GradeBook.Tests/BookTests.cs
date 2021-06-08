@@ -9,7 +9,7 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
         public void BookCalculatesAverageGrade()
         {
             // arrange section, put together test data
-            var book = new Book("");
+            var book = new InMemoryBook("");
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.3);

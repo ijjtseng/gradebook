@@ -7,11 +7,27 @@ namespace GradeBook //make sure name matches Program.cs namepsace
     public delegate void GradeAddedDelegate(object sender, EventArgs args); 
    //normally make separate cs file, one file per TYPE
    //events take two paramters (object and EventArgs) see line above
-   public class Book : NamedObj //meaning Book is a NamedObj
+  
+    public interface IBook //what members are avail for anything that implements this interface
+    {
+        void AddGrade(double grade);
+        Stats GetStats();
+        string Name{ get; }
+        event GradeAddedDelegate GradeAdded;
+    }
+    public abstract class Book : NamedObj  //any class with BookBase take AddGrade Method
+    {
+        public Book(string name) : base(name)
+        {
+        }
+
+        public abstract void AddGrade(double grade);
+    }
+   public class InMemoryBook : Book //meaning Book is a NamedObj
    //public v private -- default internal, not public. just need public for unit testing.
     {
         
-        public  Book(string name) : base(name) //creating explicit constructor, must have same name as class
+        public  InMemoryBook(string name) : base(name) //creating explicit constructor, must have same name as class
         {
             grades = new List<double>();
             Name = name;
@@ -42,7 +58,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         }
 
         
-        public void AddGrade(double grade) //creating method
+        public override void AddGrade(double grade) //creating method
         {
             if (grade <= 100 && grade >= 0)
             {

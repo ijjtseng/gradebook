@@ -91,9 +91,9 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
 
         }
         // out parameter assumes incoming reference has not yet been initialized, out paramter must be assigned to smth
-        private void GetBookSetNameByRef(ref Book book, string name) // ref OR out
+        private void GetBookSetNameByRef(ref InMemoryBook book, string name) // ref OR out
         {
-            book = new Book(name); //NECESSARY output because out
+            book = new InMemoryBook(name); //NECESSARY output because out
         }
         
         [Fact]
@@ -106,9 +106,9 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
 
         }
 
-        private void GetBookSetName(Book book, string name) //book value memory location is diff than var book1
+        private void GetBookSetName(InMemoryBook book, string name) //book value memory location is diff than var book1
         {
-            book = new Book(name); //constructs new book obj
+            book = new InMemoryBook(name); //constructs new book obj
             book.Name = name;
         }
         
@@ -124,7 +124,7 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
 
         }
 
-        private void SetName(Book book, string name)
+        private void SetName(InMemoryBook book, string name)
         {
             book.Name = name; 
         }
@@ -150,9 +150,9 @@ namespace GradeBook.Tests //.Tests implies being inside GradeBook namespace, the
             // Assert.True(Object.ReferenceEquals(book1, book2));
         }
 
-        private Book GetBook(string name) //private is default, can omit "private" from this line
+        private InMemoryBook GetBook(string name) //private is default, can omit "private" from this line
         {
-            return new Book(name);
+            return new InMemoryBook(name);
         }
     }
 }

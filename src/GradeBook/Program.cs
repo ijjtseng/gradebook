@@ -8,7 +8,7 @@ namespace GradeBook //keep your classes in their own namespace, avoid conflicts
     {
         static void Main(string[] args)
         {
-            var book = new Book("My Gradebook");
+            var book = new InMemoryBook("My Gradebook");
             //do while loop to ask for book name?
             book.GradeAdded += OnGradeAdded; // things listening/subscribed to event, can only use += or -=
 
