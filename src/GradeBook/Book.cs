@@ -1,33 +1,82 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace GradeBook //make sure name matches Program.cs namepsace
 {
 
-    public delegate void GradeAddedDelegate(object sender, EventArgs args); 
-   //normally make separate cs file, one file per TYPE
-   //events take two paramters (object and EventArgs) see line above
-  
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);
+    //normally make separate cs file, one file per TYPE
+    //events take two paramters (object and EventArgs) see line above
+
     public interface IBook //what members are avail for anything that implements this interface
     {
         void AddGrade(double grade);
         Stats GetStats();
-        string Name{ get; }
+        string Name { get; }
         event GradeAddedDelegate GradeAdded;
     }
-    public abstract class Book : NamedObj  //any class with BookBase take AddGrade Method
+    public abstract class Book : NamedObj, IBook //any class with BookBase take AddGrade Method
     {
         public Book(string name) : base(name)
         {
         }
 
+        public abstract event GradeAddedDelegate GradeAdded; // virtual, abstract, override
         public abstract void AddGrade(double grade);
+        public abstract Stats GetStats();
     }
-   public class InMemoryBook : Book //meaning Book is a NamedObj
-   //public v private -- default internal, not public. just need public for unit testing.
+
+
+    public class DiskBook : Book
     {
-        
-        public  InMemoryBook(string name) : base(name) //creating explicit constructor, must have same name as class
+        public DiskBook(string name) : base(name)
+        {
+
+        }
+
+        public override event GradeAddedDelegate GradeAdded;
+
+        public override void AddGrade(double grade)
+        {
+            using (var writer = File.AppendText($"{Name}.txt")) //for files because IDisposable
+            {
+                writer.WriteLine(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
+
+            }
+
+            //writer.Dispose(); 
+            // or writer.Close();
+        }
+
+        public override Stats GetStats()
+        {
+            var result = new Stats();
+            using (var reader = File.OpenText($"{Name}.txt"))
+            {
+                var line = reader.ReadLine();
+                while (line != null)
+                {
+                    var number = double.Parse(line);
+                    result.Add(number);
+                    line = reader.ReadLine();
+                }
+            }
+
+            return result;
+
+        }
+    }
+
+    public class InMemoryBook : Book //meaning Book is a NamedObj
+                                     //public v private -- default internal, not public. just need public for unit testing.
+    {
+
+        public InMemoryBook(string name) : base(name) //creating explicit constructor, must have same name as class
         {
             grades = new List<double>();
             Name = name;
@@ -35,29 +84,29 @@ namespace GradeBook //make sure name matches Program.cs namepsace
 
         public void AddGrade(char letter) //method overloading, same name but diff signature
         {
-            
+
             //switch statement
-            switch(letter)
+            switch (letter)
             {
-                case 'A': 
-                    AddGrade(90); 
+                case 'A':
+                    AddGrade(90);
                     break;
                 case 'B':
-                    AddGrade(80); 
+                    AddGrade(80);
                     break;
                 case 'C':
-                    AddGrade(70); 
+                    AddGrade(70);
                     break;
                 case 'D':
-                    AddGrade(60); 
+                    AddGrade(60);
                     break;
                 default:
                     AddGrade(0);
                     break;
-            }   
+            }
         }
 
-        
+
         public override void AddGrade(double grade) //creating method
         {
             if (grade <= 100 && grade >= 0)
@@ -65,7 +114,7 @@ namespace GradeBook //make sure name matches Program.cs namepsace
                 grades.Add(grade);
 
                 // event delegate ... call software to show a grade has been added
-                if(GradeAdded != null)
+                if (GradeAdded != null)
                 {
                     GradeAdded(this, new EventArgs());
                 }
@@ -75,28 +124,25 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             {
                 throw new ArgumentException($"Invalid {nameof(grade)}."); //throwing exceptions
             }
-            
+
         }
 
-        public event GradeAddedDelegate GradeAdded; //field
+        public override event GradeAddedDelegate GradeAdded; //field
 
-        public Stats GetStats() //needs to return an object, classes define object, GetStats carries values to destination
+        public override Stats GetStats() //needs to return an object, classes define object, GetStats carries values to destination
         {
             var result = new Stats();
-            result.Average = 0.0;
-            result.High = double.MinValue; //lowest possible double value
-            result.Low = double.MaxValue; //largest possible double value
 
             //for loop
-            for(var index = 0; index < grades.Count; index++) 
+            for (var index = 0; index < grades.Count; index++)
             {
                 if (grades[index] == 44.4) //if condition met, break statement
                 {
                     break; //jump to end bracket OR "continue" loop but jump for this index (OR in very very rare instannce, "goto")
                 }
-                result.High = Math.Max(grades[index], result.High);
-                result.Low = Math.Min(grades[index], result.Low);
-                result.Average += grades[index];
+
+                result.Add(grades[index]);
+                //result.Average += grades[index];
             };
 
 
@@ -117,33 +163,33 @@ namespace GradeBook //make sure name matches Program.cs namepsace
             //     result.Average += grade;
             // }
 
-            result.Average /= grades.Count;
+            //result.Average /= grades.Count;
 
 
-            //C# v7, pattern matching switch statement
-            switch(result.Average)
-            {
-                case var x when x >= 90.0:
-                    result.Letter = 'A';
-                    break;
+            // //C# v7, pattern matching switch statement
+            // switch(result.Average)
+            // {
+            //     case var x when x >= 90.0:
+            //         result.Letter = 'A';
+            //         break;
 
-                case var x when x >= 80.0:
-                    result.Letter = 'B';
-                    break;
+            //     case var x when x >= 80.0:
+            //         result.Letter = 'B';
+            //         break;
 
-                case var x when x >= 70.0:
-                    result.Letter = 'C';
-                    break;
+            //     case var x when x >= 70.0:
+            //         result.Letter = 'C';
+            //         break;
 
-                case var x when x >= 60.0:
-                    result.Letter = 'D';
-                    break;
+            //     case var x when x >= 60.0:
+            //         result.Letter = 'D';
+            //         break;
 
-                default:
-                    result.Letter = 'F';
-                    break;
+            //     default:
+            //         result.Letter = 'F';
+            //         break;
 
-            }
+            // }
 
             return result;
         }
@@ -153,17 +199,17 @@ namespace GradeBook //make sure name matches Program.cs namepsace
         //public string Name;
 
 
-        
-       // private string name;
 
-       readonly string category = "Science"; //readonly field, assigned in constructor
-       public const string CATEGORY = "Science"; //const field, referenced by Book.CATEGORY and not book.CATEGORY
+        // private string name;
+
+        //readonly string category = "Science"; //readonly field, assigned in constructor
+        //public const string CATEGORY = "Science"; //const field, referenced by Book.CATEGORY and not book.CATEGORY
 
 
-        
 
-        
 
-        
+
+
+
     }
 }
